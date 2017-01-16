@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<project name="WrapperDataSource" default="build" basedir=".">
+
+	<property file="build.properties"/>
+	
+	
+	<target name="clean" description="Deletes compiled and generated code">
+	        <delete dir="${build.dir}" />
+	</target>
+	
+	<target name="build" depends="clean" description="build Wrapper">
+		<mkdir dir="${build.dir}" />
+		<unzip src="${build.dir}/../lib/ironjacamar-jdbc-1.0.31.Final-redhat-1.jar" dest="${build.dir}"/>
+		<path id="lib.path.ref">
+		    <fileset dir="${lib.path.ref}" includes="*.jar"/>
+		</path> 
+		<javac srcdir="${source.dir}" destdir="${build.dir}" classpathref="lib.path.ref" target="1.6" source="1.6" debug="true"/>	
+		<jar   destfile="${jar.dir}/${jar.name}"
+		       basedir="${build.dir}"		       
+		/>
+	</target>
+</project>
